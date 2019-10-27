@@ -19,4 +19,8 @@ Understanding Nodes:
 Understanding Topics:
 - Again this tutorial did not require the addition of new fields. Topics and messages were explored along with the usage of rqt_graph and rqt_plot
 
+Writing Publisher Subscriber:
+- Wrote the Talker and Listener Rosnodes outlined by the tutorial. Modified the cmakelist accordingly.
 
+Examining Publisher Subscriber:
+- Ran the publisher and subscriber that was written and built in the last tutorial. Note in order to run these packages the setup.bash script needed to be sourced in each terminal in order to run each node. No additional files added.
