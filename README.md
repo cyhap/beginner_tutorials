@@ -15,3 +15,8 @@ Building Package:
 
 Understanding Nodes:
 -  This tutorial primarily focused on running the ros nodes and understanding how they work. No new files were added.
+
+Understanding Topics:
+- Again this tutorial did not require the addition of new fields. Topics and messages were explored along with the usage of rqt_graph and rqt_plot
+
+
