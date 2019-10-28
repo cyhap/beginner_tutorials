@@ -41,7 +41,7 @@ git clone https://github.com/cyhap/beginner_tutorials.git <aName>
 - Place the beginner_tutorials directory in your <Catkin_Workspace>/src folder.
 ```
 mv <aName>/catkin_ws/src/beginner_tutorials <Catkin_Workspace>/src
-``
+```
 - Change directories to <Catkin_Workspace> and run catkin_make
 ```
 cd <Catkin_Workspace>
