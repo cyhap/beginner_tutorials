@@ -38,8 +38,7 @@ In order to use the rosnodes provided by this package they must first be built i
 ```
 git clone https://github.com/cyhap/beginner_tutorials.git <aName>
 ```
-- Place the beginner_tutorials directory in your <Catkin_Workspace>/src folder.*
-- Note that this directory must have the sam
+- Place the beginner_tutorials directory in your <Catkin_Workspace>/src folder.
 ```
 mv <aName>/catkin_ws/src/beginner_tutorials <Catkin_Workspace>/src
 ``
@@ -50,6 +49,10 @@ catkin_make
 ```
 
 ## Run instructions:
+- Open a terminal and being running roscore
+```
+roscore
+```
 - Open a new terminal and make sure the <Catkin_Workspace>/devel/setup.bash has been sourced. In order to find the newly built packages.
 ```
 source <Catkin_Workspace>/devel/setup.bash
@@ -72,4 +75,7 @@ rosrun beginner_tutorials listener
 
 - Note the rostopic that talker publishes and listener subscribes to is called /chatter
 
+## Caution
+Upon testing these instructions it seems like there are two things over concern. Upon building for the first time there seems to be a developer catkin warning pointing out that "beginner_tutorials_generate_messages_cpp"  of target listener and target does not exist. This was a step from the tutorial however I am not 100% sure I understand what that dependency is being added. According to the reading it seems like it would be there to ensure the message dependencies for the ros nodes being built exist. However, if catkin_make is run again, these warnings no longer appear and the nodes still function. I was unable to determine the root cause of these warnings.
 
+Secondly, I have made two different catkin workspaces on my machine in order to facilitate testing. The second workspace that I have seems to also source the original catkin workspave that I originally made. It is unclear to me whether this additional path will appear for other users as well. It should not matter, as the proper path is still added first and the nodes should still build and run as expected however this was worrysome. I'd like to discuss further with the TAs.
