@@ -32,6 +32,11 @@ Examining Publisher Subscriber:
 Getting Started with roswtf:
 - This tutorial shows some example of how to use roswtf and examples of how it may diagnose some problems. This did not introduce new files.
 
+Understanding Servives Params:
+-  This tutorial demonstrated how to use services and parameters from the command line to update the background color of the turtle_sim
+ example. The background color of turtle sim is saved in as a collection of r g and b parameters. Turtle_sim provides services to update those
+parameters.
+
 ## Dependencies:
 This ros package was developed in ros-kinetic. No other ros distributions are guaranteed to support this package. Note the source code expects to be built using the c++11 standard. (Outlined in the CMakelist.txt file)
 
