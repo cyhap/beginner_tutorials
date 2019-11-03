@@ -29,6 +29,9 @@ Writing Publisher Subscriber:
 Examining Publisher Subscriber:
 - Ran the publisher and subscriber that was written and built in the last tutorial. Note in order to run these packages the setup.bash script needed to be sourced in each terminal in order to run each node. No additional files added.
 
+Getting Started with roswtf:
+- This tutorial shows some example of how to use roswtf and examples of how it may diagnose some problems. This did not introduce new files.
+
 ## Dependencies:
 This ros package was developed in ros-kinetic. No other ros distributions are guaranteed to support this package. Note the source code expects to be built using the c++11 standard. (Outlined in the CMakelist.txt file)
 
