@@ -1,0 +1,18 @@
+<launch>
+  <arg
+    name="desiredNS"
+    default="private"
+  />
+  <node
+    name="talkerNode"
+    pkg="beginner_tutorials"
+    type="talker"
+    ns="$(arg desiredNS)"
+  />
+  <node
+    name="listenerNode"
+    pkg="beginner_tutorials"
+    type="listener"
+    ns="$(arg desiredNS)"
+  />
+</launch>
