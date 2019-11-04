@@ -12,7 +12,13 @@
 #include "std_msgs/String.h"
 
 /**
- * This tutorial demonstrates simple receipt of messages over the ROS system.
+ * @brief This function is called any time the listener node sees there is
+ * something published on the chatter topic.
+ *
+ * @param const std_msgs::String::ConstPtr& The Pointer to the message which
+ * carries the data is received.
+ *
+ * @return None.
  */
 void chatterCallback(const std_msgs::String::ConstPtr &msg) {
   ROS_INFO("I heard: [%s]", msg->data.c_str());

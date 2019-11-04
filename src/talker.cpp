@@ -9,9 +9,28 @@
  */
 
 #include <sstream>
+#include <string>
 
 #include "ros/ros.h"
 #include "std_msgs/String.h"
+#include "beginner_tutorials/change_base_string.h"
+
+std::string baseString = "Corbyn's Publisher Node.";
+
+/**
+ * @brief This function is called when the change_base_str service is invoked.
+ *
+ * @param std_msgs::String::ConstPtr& The Pointer to the message which
+ * carries the data is received.
+ *
+ * @return None.
+ */
+bool changeBaseStr(beginner_tutorials::change_base_string::Request &req,
+                   beginner_tutorials::change_base_string::Response &resp) {
+
+  resp.oldString = baseString;
+  baseString = req.newString;
+}
 
 /**
  * This tutorial demonstrates simple sending of messages over the ROS system.
@@ -35,6 +54,10 @@ int main(int argc, char **argv) {
    * NodeHandle destructed will close down the node.
    */
   ros::NodeHandle n;
+
+  // Registering the service with the master.
+  ros::ServiceServer server = n.advertiseService("change_base_str",
+                                                  &changeBaseStr);
 
   /**
    * The advertise() function is how you tell ROS that you want to
@@ -69,7 +92,7 @@ int main(int argc, char **argv) {
     std_msgs::String msg;
 
     std::stringstream ss;
-    ss << "Corbyn's Publisher Node " << count;
+    ss << baseString << count;
     msg.data = ss.str();
 
     ROS_INFO("%s", msg.data.c_str());
