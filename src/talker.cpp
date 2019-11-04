@@ -28,12 +28,10 @@ std::string baseString = "Corbyn's Publisher Node.";
 bool changeBaseStr(beginner_tutorials::change_base_string::Request &req,
                    beginner_tutorials::change_base_string::Response &resp) {
   bool success = true;
-
+  resp.oldString = "";
   ROS_DEBUG_STREAM("The Change Base String Service was succesfullly Called!");
-  if (baseString.compare(req.newString) == 0) {
-    ROS_WARN_STREAM("That was already the base string.");
-    success = false;
-  }
+  auto sameStr = baseString.compare(req.newString) == 0;
+  ROS_WARN_STREAM_COND(sameStr, "That was already the base string.");
   resp.oldString = baseString;
   baseString = req.newString;
   return success;
@@ -86,7 +84,15 @@ int main(int argc, char **argv) {
   auto chatter_pub = n.advertise < std_msgs::String > ("chatter", 1000);
 
   double messageFrqHz;
-  bool paramFound = ros::param::get("~messageFrqHz", messageFrqHz);
+  std::string frqParamName = "~messageFrqHz";
+  bool paramFound = ros::param::get(frqParamName, messageFrqHz);
+  if (!paramFound) {
+    ROS_FATAL_STREAM(
+        "Could not determine the publish Frequency. (" << frqParamName << ")");
+    ROS_ERROR_STREAM(
+        "Consider setting: " << frqParamName << " with rosparam and running.");
+    exit(1);
+  }
   ros::Rate loop_rate(messageFrqHz);
 
   /**
