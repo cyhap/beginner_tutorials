@@ -42,18 +42,26 @@ This ros package was developed in ros-kinetic. No other ros distributions are gu
 
 ## Build instructions:
 In order to use the rosnodes provided by this package they must first be built in a catkin workspace. For the instructions the Catkin Workspace directory shall be referred to as <Catkin Workspace> and should be replaced with the users full path to their Catkin Workspace.
+- Navigate to your catkin_ws src directory.
+```
+cd <Catkin Workspace>/src
+```
+
 - Pull the package from github.
 ```
-git clone https://github.com/cyhap/beginner_tutorials.git <aName>
+git clone https://github.com/cyhap/beginner_tutorials.git
 ```
-- Place the beginner_tutorials directory in your <Catkin_Workspace>/src folder.
-```
-mv <aName>/catkin_ws/src/beginner_tutorials <Catkin_Workspace>/src
-```
-- Change directories to <Catkin_Workspace> and run catkin_make
+- The beginner_tutorials directory should now be in your <Catkin_Workspace>/src folder.
+
+- Change directories to <Catkin_Workspace> and run catkin_make install
 ```
 cd <Catkin_Workspace>
-catkin_make
+catkin_make install
+```
+- Note the install is only necessary the first time the package is built to ensure that the services are generated and installed.
+- Make sure that your catkin workspace is sourced in order to run this package in another terminal. 
+```
+source <Catkin_Workspace>/devel/setup.bash
 ```
 
 ## Run instructions:
@@ -65,12 +73,22 @@ roscore
 ```
 source <Catkin_Workspace>/devel/setup.bash
 ```
-- Run the talker node.
+### Talker Node:
+- Set the desired frequency that the talker node will publish messages.
+```
+rosparam set /talker/messageFrqHz <Frequency_in_HZ>
+```
+- Begin Running the talker Node.
 ```
 rosrun beginner_tutorials talker
 ```
 - One should observe the following Message being printed to screen from the talker node: "Corbyn's Publisher Node #" where # will be a count of how many messages have been published.
 
+### Listener Node:
+- Open a terminal and being running roscore
+```
+roscore
+```
 - Open a new terminal and again make sure that the <Catkin_Workspace>/devel/setup.bash has been sourced.
 ```
 source <Catkin_Workspace>/devel/setup.bash
@@ -82,8 +100,36 @@ rosrun beginner_tutorials listener
 - One should observe the follwing Message being printed to screen from the listener node:"I heard: Corbyn's Publisher Node #" where # will be a number.
 
 - Note the rostopic that talker publishes and listener subscribes to is called /chatter
+## Both Nodes Simultaneously (USING ROS LAUNCH):
+- Open a new terminal and again make sure that the <Catkin_Workspace>/devel/setup.bash has been sourced.
+```
+source <Catkin_Workspace>/devel/setup.bash
+```
+- In order to run both the talker and listener nodes one can use the launch file provided. Simply use the following command in your terminal:
+```
+roslaunch beginner_tutorials talkAndListen.launch
+```
+- There are two optional arguments for the roslaunch commandline input. One controls the frequency that the messages are published while the
+other allows the user to declare the namespace of both nodes from the command line. An example using both arguments is provided below:
+```
+roslaunch beginner_tutorials talkAndListen.launch desiredNS:="a_new_ns" pubFrqHz:=5
+```
+The desiredNS argument lets you set the namespace that both the talker and listener nodes appear in.
+The pubFrqHz argument allows you to modify the rate at which the messages are published.
 
-## Caution
-Upon testing these instructions it seems like there are two things over concern. Upon building for the first time there seems to be a developer catkin warning pointing out that "beginner_tutorials_generate_messages_cpp"  of target listener and target does not exist. This was a step from the tutorial however I am not 100% sure I understand what that dependency is being added. According to the reading it seems like it would be there to ensure the message dependencies for the ros nodes being built exist. However, if catkin_make is run again, these warnings no longer appear and the nodes still function. I was unable to determine the root cause of these warnings.
 
-Secondly, I have made two different catkin workspaces on my machine in order to facilitate testing. The second workspace that I have seems to also source the original catkin workspave that I originally made. It is unclear to me whether this additional path will appear for other users as well. It should not matter, as the proper path is still added first and the nodes should still build and run as expected however this was worrysome. I'd like to discuss further with the TAs.
+## Modifying the Ouput of the Talker Node (ROS Service):
+The talker node provides a service that allows you to change the base message to something new. It then returns the message that was previously
+being printed by the talker node. In order to change the base string that is being printed by the talker node run the following command in
+your terminal:
+```
+rosservice call /change_base_str <"Whatever String you desire."> 
+```
+This will update the base string that is being published. (The counter will continue to increment and not reset)
+
+Note that the /change_base_str service is under the namespace provided. So if running the talker node using rosrun, then the service will appear
+as listed above. If running using another namespace, such as the "private" whic is the namespace used by default when
+running using roslaunch without a desiredNS parameter, the service name must also include that namespace. In the case of this example the
+service would be "/private/change_base_str" instead. Consider using rosservice list to view the available services.
+
+
