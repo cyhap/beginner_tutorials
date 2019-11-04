@@ -27,9 +27,16 @@ std::string baseString = "Corbyn's Publisher Node.";
  */
 bool changeBaseStr(beginner_tutorials::change_base_string::Request &req,
                    beginner_tutorials::change_base_string::Response &resp) {
+  bool success = true;
 
+  ROS_DEBUG_STREAM("The Change Base String Service was succesfullly Called!");
+  if (baseString.compare(req.newString) == 0) {
+    ROS_WARN_STREAM("That was already the base string.");
+    success = false;
+  }
   resp.oldString = baseString;
   baseString = req.newString;
+  return success;
 }
 
 /**
@@ -92,10 +99,10 @@ int main(int argc, char **argv) {
     std_msgs::String msg;
 
     std::stringstream ss;
-    ss << baseString << count;
+    ss << baseString << " " << count;
     msg.data = ss.str();
 
-    ROS_INFO("%s", msg.data.c_str());
+    ROS_INFO_STREAM(msg.data);
 
     /**
      * The publish() function is how you send messages. The parameter
