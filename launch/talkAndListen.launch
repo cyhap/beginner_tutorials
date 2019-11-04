@@ -3,12 +3,18 @@
     name="desiredNS"
     default="private"
   />
+  <arg
+    name="pubFrqHz"
+    default="10"
+  />
   <node
     name="talkerNode"
     pkg="beginner_tutorials"
     type="talker"
     ns="$(arg desiredNS)"
-  />
+  >
+    <param name="messageFrqHz" value="$(arg pubFrqHz)"/>
+  </node>
   <node
     name="listenerNode"
     pkg="beginner_tutorials"

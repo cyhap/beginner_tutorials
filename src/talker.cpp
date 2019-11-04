@@ -85,7 +85,9 @@ int main(int argc, char **argv) {
    */
   auto chatter_pub = n.advertise < std_msgs::String > ("chatter", 1000);
 
-  ros::Rate loop_rate(10);
+  double messageFrqHz;
+  bool paramFound = ros::param::get("~messageFrqHz", messageFrqHz);
+  ros::Rate loop_rate(messageFrqHz);
 
   /**
    * A count of how many messages we have sent. This is used to create
