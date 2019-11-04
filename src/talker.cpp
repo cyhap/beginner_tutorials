@@ -20,10 +20,13 @@ std::string baseString = "Corbyn's Publisher Node.";
 /**
  * @brief This function is called when the change_base_str service is invoked.
  *
- * @param std_msgs::String::ConstPtr& The Pointer to the message which
- * carries the data is received.
+ * @param beginner_tutorials::change_base_string::Request the string that will
+ * be used to update the base string.
  *
- * @return None.
+ * @param beginner_tutorials::change_base_string::Response the string that was
+ * previously the base string.
+ *
+ * @return bool whether or not updating the base string was successful.
  */
 bool changeBaseStr(beginner_tutorials::change_base_string::Request &req,
                    beginner_tutorials::change_base_string::Response &resp) {
