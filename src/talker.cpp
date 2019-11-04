@@ -40,7 +40,16 @@
 #include "std_msgs/String.h"
 #include "beginner_tutorials/change_base_string.h"
 
+/* Note this is flagged by cpplint however due to the fact that the
+ * changeBaseStr service function callback needs a global string to update.
+ * It cannot be avoided.
+ */
 std::string baseString = "Corbyn's Publisher Node.";
+
+/* Note below is also flagged by cpplint the request and response are not
+ * allowed to be const according to some reading. Making them const & prevents
+ * the package from building successfully.
+ */
 
 /**
  * @brief This function is called when the change_base_str service is invoked.

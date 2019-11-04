@@ -1,0 +1,6 @@
+./src/talker.cpp:47:  Static/global string variables are not permitted.  [runtime/string] [4]
+./src/talker.cpp:65:  Is this a non-const reference? If so, make const or use a pointer: beginner_tutorials::change_base_string::Request &req  [runtime/references] [2]
+./src/talker.cpp:66:  Is this a non-const reference? If so, make const or use a pointer: beginner_tutorials::change_base_string::Response &resp  [runtime/references] [2]
+Done processing ./src/talker.cpp
+Done processing ./src/listener.cpp
+Total errors found: 3
