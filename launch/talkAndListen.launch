@@ -7,6 +7,10 @@
     name="pubFrqHz"
     default="10"
   />
+  <arg
+    name="recordChatter"
+    default="0"
+  />
   <node
     name="talkerNode"
     pkg="beginner_tutorials"
@@ -21,4 +25,12 @@
     type="listener"
     ns="$(arg desiredNS)"
   />
+  <group if="$(arg recordChatter)">
+    <node
+     name="recordTalkerNode"
+     pkg="rosbag"
+     type="record"
+     args = "-aO beginnerTutorials.bag"
+    />
+  </group>
 </launch>
