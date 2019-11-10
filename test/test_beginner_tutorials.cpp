@@ -7,8 +7,11 @@
 
 #include "beginner_tutorials/change_base_string.h"
 
+// The node handle used by the testing framework. (Initialized in main)
 std::shared_ptr<ros::NodeHandle> nh;
 
+// Test to determine whether  or not the base string can be changed via the
+// service.
 TEST(TalkerPublishing, changeStrService) {
   ros::ServiceClient client = nh
       ->serviceClient<beginner_tutorials::change_base_string>(
@@ -25,6 +28,13 @@ TEST(TalkerPublishing, changeStrService) {
 
   std::string expString = "Corbyn's Publisher Node.";
   EXPECT_TRUE(expString.compare(srv.response.oldString) == 0);
+
+  std::string secondTestStr("Test Str 2.");
+  srv.request.newString = secondTestStr;
+
+  client.call(srv);
+
+  EXPECT_TRUE(firstTestString.compare(srv.response.oldString) == 0);
 }
 
 int main(int argc, char **argv) {
