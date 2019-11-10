@@ -105,13 +105,35 @@ source <Catkin_Workspace>/devel/setup.bash
 ```
 roslaunch beginner_tutorials talkAndListen.launch
 ```
-- There are two optional arguments for the roslaunch commandline input. One controls the frequency that the messages are published while the
-other allows the user to declare the namespace of both nodes from the command line. An example using both arguments is provided below:
+- There are three optional arguments for the roslaunch commandline input. One controls the frequency that the messages are published while the
+second allows the user to declare the namespace of both nodes from the command line. Finally, the last option allows the user to record all active topics when this launched. Be wary that if other nodes are running their published topics will be captured in the bag file as well. An example using all arguments is provided below:
 ```
-roslaunch beginner_tutorials talkAndListen.launch desiredNS:="a_new_ns" pubFrqHz:=5
+roslaunch beginner_tutorials talkAndListen.launch desiredNS:="a_new_ns" pubFrqHz:=5 recordChatter:=1
 ```
 The desiredNS argument lets you set the namespace that both the talker and listener nodes appear in.
 The pubFrqHz argument allows you to modify the rate at which the messages are published.
+The recordChatter argument allows you to record a bag file titled beginnerTutorials.bag.
+Note the rosbag file will be located under the ~/.ros directory.
+
+## Bag File Playback
+To inspect the contents of the bagfile run the following command:
+```
+rosbag info <Path to bag File in Results Folder>
+```
+
+Use the listener node to observe the messages that were saved in the bag file. The namespace of listener needs to be updated to subscribe to the messages from the bagfile. The namespace it was saved to was "/private/chatter" because a namespace was not provided when the launch file was run initially, thus it used the default namespace of private.
+
+```
+rosrun beginner_tutorials listener __ns:=private
+```
+Now one can start playing the bagfile.
+```
+rosbag play <Path to bag File in Results Folder>
+```
+This is an example of the previous command specific to my local machine
+```
+rosbag play ~/SoftwareDevForRobotics/catkin_ws/src/beginner_tutorials/results/week11_HW_results/beginnerTutorials.bag
+```
 
 
 ## Modifying the Ouput of the Talker Node (ROS Service):
@@ -127,5 +149,8 @@ Note that the /change_base_str service is under the namespace provided. So if ru
 as listed above. If running using another namespace, such as the "private" whic is the namespace used by default when
 running using roslaunch without a desiredNS parameter, the service name must also include that namespace. In the case of this example the
 service would be "/private/change_base_str" instead. Consider using rosservice list to view the available services.
+
+## Inspecting TF Frames.
+ The tf frames are only present from world frame to the talk frame as assigned. The tf graph is provided in the results/week11_HW_results directory in frames.pdf. To inspect the tf frames while the nodes are running one may run the talker node individually or have it running in the collection of nodes that run using roslaunch. See above sections for instructions on both of those operations.
 
 
