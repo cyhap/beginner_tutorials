@@ -61,14 +61,14 @@ TEST(TalkerPublishing, changeStrService) {
   client.call(srv);
 
   std::string expString = "Corbyn's Publisher Node.";
-  EXPECT_TRUE(expString.compare(srv.response.oldString) == 0);
+  EXPECT_EQ(expString.compare(srv.response.oldString), 0);
 
   std::string secondTestStr("Test Str 2.");
   srv.request.newString = secondTestStr;
 
   client.call(srv);
 
-  EXPECT_TRUE(firstTestString.compare(srv.response.oldString) == 0);
+  EXPECT_EQ(firstTestString.compare(srv.response.oldString), 0);
 }
 
 int main(int argc, char **argv) {
