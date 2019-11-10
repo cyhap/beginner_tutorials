@@ -74,13 +74,9 @@ roscore
 source <Catkin_Workspace>/devel/setup.bash
 ```
 ### Talker Node:
-- Set the desired frequency that the talker node will publish messages.
-```
-rosparam set /talker/messageFrqHz <Frequency_in_HZ>
-```
 - Begin Running the talker Node.
 ```
-rosrun beginner_tutorials talker
+rosrun beginner_tutorials talker _messageFrqHz:=10
 ```
 - One should observe the following Message being printed to screen from the talker node: "Corbyn's Publisher Node #" where # will be a count of how many messages have been published.
 
