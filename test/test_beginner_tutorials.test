@@ -1,0 +1,11 @@
+<launch>
+<node
+  name="talker_testNode"
+  pkg="beginner_tutorials"
+  type="talker"
+>
+  <param name="messageFrqHz" value="10"/>
+</node>
+
+<test pkg="beginner_tutorials" test-name="test_change_base_str_service" type="test_beginner_tutorials" />
+</launch>

@@ -11,13 +11,14 @@ std::shared_ptr<ros::NodeHandle> nh;
 
 TEST(TalkerPublishing, changeStrService) {
   ros::ServiceClient client = nh
-      ->serviceClient<beginner_tutorials::change_base_str>("change_base_str");
+      ->serviceClient<beginner_tutorials::change_base_string>(
+      "change_base_str");
 
-  bool exists(client.waitForExistence(ros::Duration(1)));
+  bool exists(client.waitForExistence(ros::Duration(10)));
   EXPECT_TRUE(exists);
 
   std::string firstTestString("Test Change String.");
-  beginner_tutorial::change_base_string srv;
+  beginner_tutorials::change_base_string srv;
   srv.request.newString = firstTestString;
 
   client.call(srv);
