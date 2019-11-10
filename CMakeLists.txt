@@ -218,6 +218,3 @@ add_executable(listener src/listener.cpp)
 target_link_libraries(listener ${catkin_LIBRARIES})
 #add_dependencies(listener beginner_tutorials_generate_messages_cpp)
 
-add_executable(talker_tf_broadcaster src/talker_tf_broadcaster.cpp)
-target_link_libraries(talker_tf_broadcaster ${catkin_LIBRARIES})
-
