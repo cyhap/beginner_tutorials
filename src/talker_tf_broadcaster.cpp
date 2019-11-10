@@ -55,10 +55,15 @@ int main(int argc, char **argv) {
   q.setRPY(M_PI / 2, 0, -M_PI);
 
   transform.setRotation(q);
-  br.sendTransform(
-      tf::StampedTransform(transform, ros::Time::now(), "world", "talk"));
 
-  ros::spin();
+  // Broadcast the position at 60 Hz
+  ros::Rate loop_rate(60);
+  while (ros::ok()) {
+    br.sendTransform(
+        tf::StampedTransform(transform, ros::Time::now(), "world", "talk"));
+    ros::spinOnce();
+    loop_rate.sleep();
+  }
 
   return 0;
 }
