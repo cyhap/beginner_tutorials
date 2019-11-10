@@ -25,12 +25,11 @@
     type="listener"
     ns="$(arg desiredNS)"
   />
-  <group if="$(arg recordChatter)">
-    <node
-     name="recordTalkerNode"
-     pkg="rosbag"
-     type="record"
-     args = "-aO beginnerTutorials.bag"
-    />
-  </group>
+  <node
+   name="recordTalkerNode"
+   pkg="rosbag"
+   type="record"
+   args = "-aO beginnerTutorials.bag"
+   if="$(arg recordChatter)"
+  />
 </launch>
