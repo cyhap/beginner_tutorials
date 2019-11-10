@@ -36,9 +36,12 @@
 #include <sstream>
 #include <string>
 
+#include <math.h>
+
+#include "beginner_tutorials/change_base_string.h"
 #include "ros/ros.h"
 #include "std_msgs/String.h"
-#include "beginner_tutorials/change_base_string.h"
+#include "tf/transform_broadcaster.h"
 
 /* Note this is flagged by cpplint however due to the fact that the
  * changeBaseStr service function callback needs a global string to update.
@@ -132,6 +135,17 @@ int main(int argc, char **argv) {
   }
   ros::Rate loop_rate(messageFrqHz);
 
+  // Build the transfrom describing the talker node from world frame to talk frame.
+  static tf::TransformBroadcaster br;
+  tf::Transform transform;
+  // Set the Position of the Talker (Constant Position for now)
+  transform.setOrigin(tf::Vector3(5.0, 22.89, -14));
+  tf::Quaternion q;
+
+  q.setRPY(M_PI / 2, 0, -M_PI);
+
+  transform.setRotation(q);
+
   /**
    * A count of how many messages we have sent. This is used to create
    * a unique string for each message.
@@ -156,6 +170,9 @@ int main(int argc, char **argv) {
      * in the constructor above.
      */
     chatter_pub.publish(msg);
+
+    br.sendTransform(
+        tf::StampedTransform(transform, ros::Time::now(), "world", "talk"));
 
     ros::spinOnce();
 

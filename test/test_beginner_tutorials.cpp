@@ -32,9 +32,10 @@
  * change the base string of the talker node as desired.
  *
  */
+#include <gtest/gtest.h>
 #include <ros/ros.h>
 #include <ros/service_client.h>
-#include <gtest/gtest.h>
+
 
 #include <memory>
 #include <string>
